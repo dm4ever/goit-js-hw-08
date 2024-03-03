@@ -1,17 +1,22 @@
-.gallery {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    list-style: none;
-    gap: 24px;
-}
+   .gallery {
+       display: flex;
+       justify-content: center;
+       flex-wrap: wrap;
+       list-style: none;
+       gap: 24px;
+   }
 
-.gallery-image {
-    width: 360px;
-    height: 300px;
-}
+   .gallery-image {
+       width: 360px;
+       height: 200px;
+   }
 
-h2 {
-    color: aliceblue;
-    font-size: 48px;
-}
+   h2 {
+       color: aliceblue;
+       font-size: 48px;
+   }
+
+   .modal {
+       width: 1112px;
+       height: 640px;
+   }
