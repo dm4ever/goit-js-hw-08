@@ -65,14 +65,42 @@ const images = [
 ];
 
 const gallery = document.querySelector(".gallery");
-const { preview: src, original: dataSource, description: alt } = images;
+images.forEach((image, index) => {
+  image.id = `${index + 1}`;
+});
 
-const markup = images
-    .map(image => `<li class="gallery-item">
-  <a class="gallery-link" href="${image.original}">
-    <img class="gallery-image" src="${image.preview}" data-source="${image.original}" alt="${image.description}">
+const [{ preview: src, original: dataSource, description: alt, id}] = images;
+
+function createMarkup(images) {
+  return images
+    .map(image => `<li class="gallery-item" data-id="${image.id}">
+    <a class="gallery-link" href="${image.original}">
+    <img class="gallery-image"
+    src="${image.preview}" 
+    data-source="${image.original}" 
+    alt="${image.description}"
   </a>
 </li>`)
     .join('');
+}
+  
+const markup = createMarkup(images);
+gallery.insertAdjacentHTML('beforeend', markup);
+gallery.addEventListener("click", handleModalOpen);
 
-    gallery.insertAdjacentHTML('beforeend', markup);
+function handleModalOpen(event) {
+  event.preventDefault();
+  if (event.currentTarget === event.target) return;
+  const currentImage = event.target.closest(".gallery-item");
+  const imageId = Number(currentImage.dataset.id);
+  const image = images.find(({ id }) => id === imageId);
+ 
+  const instance = basicLightbox.create(`
+	<div class="modal">
+    <img src="${dataSource}" alt="${alt}" >
+    <h2>${alt}</h2>
+  </div>
+`);
+
+  instance.show();
+}
